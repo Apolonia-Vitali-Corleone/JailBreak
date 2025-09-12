@@ -4,5 +4,5 @@
 # 但保留这几个文件
 !.gitignore
 !Program.cs
-!TrayHello.csproj
+!JailBreak.csproj
 !publish.bat
