@@ -28,6 +28,7 @@ internal sealed class TrayAppContext : ApplicationContext
         _iconRed   = CreateCircleIcon(Color.Red);
 
         _isRed = IsProxyEnabled();
+        ShowProxyStatus();
 
         _tray = new NotifyIcon
         {
@@ -56,6 +57,15 @@ internal sealed class TrayAppContext : ApplicationContext
     private void Toggle()
     {
         _isRed = !_isRed;
+        if (_isRed)
+        {
+            SetSystemProxy("10.0.0.1:4343");
+        }
+        else
+        {
+            DisableSystemProxy();
+        }
+        ShowProxyStatus();
         _tray.Icon = _isRed ? _iconRed : _iconBlack;
         _tray.Text = _isRed ? "jailbreak: RED" : "jailbreak: BLACK";
     }
@@ -93,6 +103,72 @@ internal sealed class TrayAppContext : ApplicationContext
         return false;
     }
 
+    private static void ShowProxyStatus()
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
+            if (key != null)
+            {
+                var proxyEnable = key.GetValue("ProxyEnable");
+                if (proxyEnable is int enabled && enabled == 1)
+                {
+                    var proxyServer = key.GetValue("ProxyServer") as string;
+                    if (!string.IsNullOrWhiteSpace(proxyServer))
+                    {
+                        Console.WriteLine($"proxy on {proxyServer}");
+                        return;
+                    }
+                }
+            }
+        }
+        catch
+        {
+        }
+        Console.WriteLine("proxy off");
+    }
+
+    private static void SetSystemProxy(string proxy)
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", true);
+            if (key != null)
+            {
+                key.SetValue("ProxyEnable", 1);
+                key.SetValue("ProxyServer", proxy);
+            }
+        }
+        catch
+        {
+        }
+        ApplyProxySettings();
+    }
+
+    private static void DisableSystemProxy()
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings", true);
+            if (key != null)
+            {
+                key.SetValue("ProxyEnable", 0);
+            }
+        }
+        catch
+        {
+        }
+        ApplyProxySettings();
+    }
+
+    private static void ApplyProxySettings()
+    {
+        const int INTERNET_OPTION_SETTINGS_CHANGED = 39;
+        const int INTERNET_OPTION_REFRESH = 37;
+        InternetSetOption(IntPtr.Zero, INTERNET_OPTION_SETTINGS_CHANGED, IntPtr.Zero, 0);
+        InternetSetOption(IntPtr.Zero, INTERNET_OPTION_REFRESH, IntPtr.Zero, 0);
+    }
+
     // 生成 32x32 圆点图标
     private static Icon CreateCircleIcon(Color color)
     {
@@ -110,4 +186,7 @@ internal sealed class TrayAppContext : ApplicationContext
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern bool DestroyIcon(IntPtr hIcon);
+
+    [DllImport("wininet.dll", SetLastError = true)]
+    private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int dwBufferLength);
 }
