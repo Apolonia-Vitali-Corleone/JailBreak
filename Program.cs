@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 internal static class Program
 {
@@ -26,11 +27,13 @@ internal sealed class TrayAppContext : ApplicationContext
         _iconBlack = CreateCircleIcon(Color.Black);
         _iconRed   = CreateCircleIcon(Color.Red);
 
+        _isRed = IsProxyEnabled();
+
         _tray = new NotifyIcon
         {
-            Icon = _iconBlack,
+            Icon = _isRed ? _iconRed : _iconBlack,
             Visible = true,
-            Text = "jailbreak — double-click to toggle"
+            Text = _isRed ? "jailbreak: RED" : "jailbreak: BLACK"
         };
 
         // 双击切换
@@ -69,6 +72,25 @@ internal sealed class TrayAppContext : ApplicationContext
         _tray.Dispose();
         _iconBlack?.Dispose();
         _iconRed?.Dispose();
+    }
+
+    private static bool IsProxyEnabled()
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings");
+            if (key == null) return false;
+            var proxyEnable = key.GetValue("ProxyEnable");
+            if (proxyEnable is int enabled && enabled == 1)
+            {
+                var proxyServer = key.GetValue("ProxyServer") as string;
+                return !string.IsNullOrWhiteSpace(proxyServer);
+            }
+        }
+        catch
+        {
+        }
+        return false;
     }
 
     // 生成 32x32 圆点图标
