@@ -1,0 +1,8 @@
+# 忽略一切
+*
+
+# 但保留这几个文件
+!.gitignore
+!Program.cs
+!TrayHello.csproj
+!publish.bat
