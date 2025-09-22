@@ -1,0 +1,125 @@
+# 本地 & 内网直连
+localhost
+127.0.0.1
+10.*.*.*
+192.168.*.*
+*.local
+
+*.youdao.com
+
+*.doubao.com
+
+# 腾讯系
+*.qq.com
+*.tencent.com
+*.weixin.com
+*.wechat.com
+*.qpic.cn
+*.gtimg.com
+
+# 阿里系
+*.taobao.com
+*.tmall.com
+*.alipay.com
+*.alicdn.com
+*.1688.com
+*.alibaba.com
+
+# 京东
+*.jd.com
+*.jdcdn.com
+*.360buyimg.com
+
+# 百度
+*.baidu.com
+*.bdimg.com
+*.bdstatic.com
+
+# 字节系
+*.douyin.com
+*.douyincdn.com
+*.douyinstatic.com
+*.bytedance.com
+
+# B站
+*.bilibili.com
+*.biliapi.net
+*.biligame.com
+*.hdslb.com
+
+# 斗鱼
+*.douyu.com
+*.douyucdn.cn
+
+# 快手
+*.kuaishou.com
+*.yximgs.com
+
+# 网易
+*.163.com
+*.126.net
+*.netease.com
+
+# 新浪 & 微博
+*.sina.com
+*.sinaimg.cn
+*.weibo.com
+*.t.cn
+
+# 搜狐
+*.sohu.com
+*.sohucs.com
+
+# 爱奇艺 & 优酷
+*.iqiyi.com
+*.iqiyipic.com
+*.youku.com
+*.ykimg.com
+
+# 其他常见直连
+*.xinhua.net
+*.people.com.cn
+*.meituan.com
+*.dianping.com
+*.maoyan.com
+*.ctrip.com
+*.ctripcdn.com
+*.amap.com
+*.csdn.net
+*.csdnimg.cn
+
+# 考试网站
+*.examtopics.online
+
+
+*.eastmoney.com
+
+# 默认已含：localhost;127.0.0.1;<local>
+# 你可以追加以下常见直连目标（分号或换行都可以，本程序会自动拼接）：
+
+# 局域网 / 私网
+localhost
+127.0.0.1
+<local>
+*.local
+*.lan
+10.*.*.*
+192.168.*.*
+172.16.*.*
+172.17.*.*
+172.18.*.*
+172.19.*.*
+172.20.*.*
+172.21.*.*
+172.22.*.*
+172.23.*.*
+172.24.*.*
+172.25.*.*
+172.26.*.*
+172.27.*.*
+172.28.*.*
+172.29.*.*
+172.30.*.*
+172.31.*.*
+
+

@@ -5,4 +5,9 @@
 !.gitignore
 !Program.cs
 !JailBreak.csproj
+!JailBreak.csproj.user
 !publish.bat
+!proxy.ico
+!proxy-bypass.txt
+!proxy-via.txt
+

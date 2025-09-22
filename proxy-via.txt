@@ -1,0 +1,54 @@
+# ========== 基础测试 ==========
+quicwg.org
+*.quicwg.org
+
+# ========== 开发与代码 ==========
+github.com
+*.github.com
+githubusercontent.com
+*.githubusercontent.com
+gitlab.com
+*.gitlab.com
+
+# ========== 包与镜像 ==========
+npmjs.org
+registry.npmjs.org
+pip.python.org
+pypi.org
+files.pythonhosted.org
+docker.com
+*.docker.com
+docker.io
+*.docker.io
+index.docker.io
+registry-1.docker.io
+
+# ========== 文档与学习 ==========
+archive.org
+*.archive.org
+wikipedia.org
+*.wikipedia.org
+
+# ========== 常见搜索/云 API ==========
+google.com
+*.google.com
+gstatic.com
+*.gstatic.com
+googleapis.com
+*.googleapis.com
+
+# ========== 社交/消息（示例）==========
+telegram.org
+*.telegram.org
+# Telegram 常用 IP 网段（示例）
+91.108.4.0/22
+91.108.8.0/21
+149.154.160.0/20
+*.twitter.com
+
+# ========== 直连但需要经代理的单个 IP（示例）==========
+1.1.1.1
+
+# AI
+*.chatgpt.com
+*.youtube.com
